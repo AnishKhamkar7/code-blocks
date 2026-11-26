@@ -6,3 +6,4 @@ Each folder here is a separate project you can copy into a new repository. Pick 
 
 - [`hono-vite-auth`](./hono-vite-auth): Bun, Hono, React/Vite, Better Auth with Google, Prisma/PostgreSQL, TanStack Router, and TanStack Query.
 - [`express-vite-auth`](./express-vite-auth): Bun, Express, React/Vite, Better Auth with Google, Prisma/PostgreSQL, TanStack Router, and TanStack Query.
+- [`express-nextjs-auth`](./express-nextjs-auth): Bun, Express, Next.js App Router, Better Auth with Google, and Prisma/PostgreSQL.
