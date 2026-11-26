@@ -1,1 +1,0 @@
-A simple fitness-focused app that helps you stay consistent by capturing progress photos with your team, partner, or collaborators. Track your transformation visually over time and stay motivated through shared accountability. See real changes through pictures, not just numbers.

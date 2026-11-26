@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  groups         Group[]
+  notifications  Notification[]
+  collaborations Collaboration[]
+  AWS_Config     AWS_Config?
+  Subscription   Subscription?
+  Invitation     Invitation[]
+}
+
+model S3_Bucket {
+  id         String   @id @default(uuid())
+  configId   String
+  name       String
+  aws_region String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  aws_config AWS_Config @relation(fields: [configId], references: [id])
+}
+
+model AWS_Config {
+  id         String   @id @default(uuid())
+  ARN        String   @unique
+  externalID String
+  userId     String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user      User        @relation(fields: [userId], references: [id])
+  S3_Bucket S3_Bucket[]
+}
+
+model Subscription {
+  id         String    @id @default(uuid())
+  plan       Plan      @default(PRO)
+  userId     String    @unique
+  lastPaidAt DateTime?
+  endsAt     DateTime
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Verification {
+  id        String           @id @default(uuid())
+  email     String           @unique
+  name      String
+  type      VerificationType
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model Group {
+  id          String   @id @default(uuid())
+  description String?
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  collaborations Collaboration[]
+  owner          User            @relation(fields: [ownerId], references: [id])
+  Role           Role[]
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  permissions String[]
+  groupId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  collaborators Collaboration[]
+  invitations   Invitation[]
+  group         Group           @relation(fields: [groupId], references: [id])
+}
+
+model Invitation {
+  id        String           @id @default(uuid())
+  recipient String
+  roleId    String
+  buckets   String[]
+  status    InvitationStatus @default(PENDING)
+  senderId  String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  role   Role @relation(fields: [roleId], references: [id])
+  sender User @relation(fields: [senderId], references: [id])
+}
+
+model Collaboration {
+  id        String   @id @default(uuid())
+  roleId    String
+  buckets   String[] //stores the Id of buckets
+  userId    String
+  groupId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  group Group @relation(fields: [groupId], references: [id])
+  role  Role  @relation(fields: [roleId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@unique([userId, groupId])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  title     String
+  content   String?
+  type      NotificationType
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum VerificationType {
+  SIGN_UP
+  SIGN_IN
+}
+
+enum Plan {
+  PRO
+  ENTERPRISE
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+enum NotificationType {
+  WARNING
+  INFO
+}

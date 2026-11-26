@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --animate-rainbow: rainbow var(--speed, 2s) infinite linear;
+  --color-color-5: var(--color-5);
+  --color-color-4: var(--color-4);
+  --color-color-3: var(--color-3);
+  --color-color-2: var(--color-2);
+  --color-color-1: var(--color-1);
+  @keyframes rainbow {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 200%;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.65rem;
+
+    /* --- LIGHT MODE --- */
+    /* Background: Pure, clean white for maximum contrast */
+    --background: oklch(100% 0 0);
+    /* Foreground: Deep charcoal-teal for text, harmonizing with the primary hue */
+    --foreground: oklch(25% 0.04 195);
+
+    /* Cards: Pure white */
+    --card: oklch(100% 0 0);
+    --card-foreground: oklch(25% 0.04 195);
+
+    --popover: oklch(100% 0 0);
+    --popover-foreground: oklch(25% 0.04 195);
+
+    /* === PRIMARY COLOR: #063F47 === */
+    /* Converted to OKLCH approx: oklch(35% 0.1 195) - Deep Teal */
+    --primary: oklch(35% 0.1 195);
+    --primary-foreground: oklch(100% 0 0); /* White text on primary buttons */
+
+    /* === SECONDARY: Very pale tints of the primary teal === */
+    /* Used for subtle backgrounds, tags, etc. */
+    --secondary: oklch(96% 0.03 195);
+    --secondary-foreground: oklch(30% 0.08 195);
+
+    /* Muted: Used for disabled states or subtle labels */
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(55% 0.04 195);
+
+    /* Accent: A light teal tint for hover states on ghost buttons */
+    --accent: oklch(100% 0.00011 271.152);
+    --accent-foreground: oklch(35% 0.1 195);
+
+    /* Destructive remains red for critical operational alerts */
+    --destructive: oklch(60% 0.18 25);
+    --destructive-foreground: oklch(98% 0.01 25);
+
+    --border: oklch(90% 0.02 195);
+    --input: oklch(90% 0.02 195);
+    /* Ring matches primary color for focus states */
+    --ring: oklch(35% 0.1 195);
+
+    /* === CHARTS: Monochromatic Teal Gradient === */
+    /* Creates a professional, branded look for your charts */
+    --chart-1: oklch(35% 0.1 195); /* The Primary Deep Teal */
+    --chart-2: oklch(50% 0.12 195); /* Medium Teal */
+    --chart-3: oklch(65% 0.13 195); /* Lighter Teal */
+    --chart-4: oklch(80% 0.1 195); /* Soft Teal */
+    --chart-5: oklch(90% 0.06 195); /* Pale Teal */
+
+    /* === SIDEBAR: Keep your existing dark sidebar === */
+    /* oklch equivalent of a deep dark teal/slate */
+    --sidebar: oklch(100% 0.00011 271.152);
+    --sidebar-foreground: oklch(98% 0 0); /* White text */
+    --sidebar-primary: oklch(35% 0.1 195); /* Primary color for active item background */
+    --sidebar-primary-foreground: oklch(100% 0 0); /* White text for active item */
+    --sidebar-accent: oklch(30% 0.06 195); /* Slightly lighter for hover */
+    --sidebar-accent-foreground: oklch(98% 0 0);
+    --sidebar-border: oklch(30% 0.04 195);
+    --sidebar-ring: oklch(35% 0.1 195);
+
+    /* magic UI component */
+    --color-1: oklch(66.2% 0.225 25.9);
+    --color-2: oklch(60.4% 0.26 302);
+    --color-3: oklch(69.6% 0.165 251);
+    --color-4: oklch(80.2% 0.134 225);
+    --color-5: oklch(90.7% 0.231 133);
+  }
+
+  .dark {
+    /* --- MODERN DARK MODE (Neutral backgrounds, vibrant primary) --- */
+    /* Neutral near-black background for sleek look */
+    --background: oklch(12% 0 0);
+    --foreground: oklch(98% 0 0);
+
+    /* Neutral dark grey cards */
+    --card: oklch(17% 0 0);
+    --card-foreground: oklch(98% 0 0);
+
+    --popover: oklch(17% 0 0);
+    --popover-foreground: oklch(98% 0 0);
+
+    /* Primary: Slightly brighter version of #063F47 to glow against dark bg */
+    --primary: oklch(50% 0.12 195);
+    --primary-foreground: oklch(100% 0 0);
+
+    /* Secondary elements become neutral dark greys to let primary pop */
+    --secondary: oklch(25% 0 0);
+    --secondary-foreground: oklch(98% 0 0);
+
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(70% 0 0);
+
+    --accent: oklch(30% 0 0);
+    --accent-foreground: oklch(98% 0 0);
+
+    --destructive: oklch(55% 0.18 25);
+    --destructive-foreground: oklch(98% 0.01 25);
+
+    --border: oklch(25% 0 0);
+    --input: oklch(25% 0 0);
+    --ring: oklch(50% 0.12 195);
+
+    /* Sidebar: Neutral dark grey in dark mode */
+    --sidebar: oklch(15% 0 0);
+    --sidebar-foreground: oklch(95% 0 0);
+    --sidebar-primary: oklch(50% 0.12 195); /* Primary teal for active state */
+    --sidebar-primary-foreground: oklch(100% 0 0);
+    --sidebar-accent: oklch(25% 0 0);
+    --sidebar-accent-foreground: oklch(95% 0 0);
+    --sidebar-border: oklch(20% 0 0);
+
+    --color-1: oklch(66.2% 0.225 25.9);
+    --color-2: oklch(60.4% 0.26 302);
+    --color-3: oklch(69.6% 0.165 251);
+    --color-4: oklch(80.2% 0.134 225);
+    --color-5: oklch(90.7% 0.231 133);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+}
+/* 
+:root {
+  --color-1: oklch(66.2% 0.225 25.9);
+  --color-2: oklch(60.4% 0.26 302);
+  --color-3: oklch(69.6% 0.165 251);
+  --color-4: oklch(80.2% 0.134 225);
+  --color-5: oklch(90.7% 0.231 133);
+}
+
+.dark {
+  --color-1: oklch(66.2% 0.225 25.9);
+  --color-2: oklch(60.4% 0.26 302);
+  --color-3: oklch(69.6% 0.165 251);
+  --color-4: oklch(80.2% 0.134 225);
+  --color-5: oklch(90.7% 0.231 133);
+} */
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
